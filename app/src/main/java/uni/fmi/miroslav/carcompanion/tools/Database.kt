@@ -1,6 +1,7 @@
 package uni.fmi.miroslav.carcompanion.tools
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -12,7 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class Database(context: Context) : SQLiteOpenHelper(context,
-    DATABASE_NAME, null,
+    DATABASE_NAME,
+        null,
     DATABASE_VERSION
 ) {
 
@@ -76,8 +78,7 @@ class Database(context: Context) : SQLiteOpenHelper(context,
 
     //INSERTS
     @SuppressLint("SimpleDateFormat")
-    fun insertFillUp(db: SQLiteDatabase, fuel: Double, km: Double): Long{
-        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
+    fun insertFillUp(db: SQLiteDatabase, fuel: Double, km: Double, sdf: SimpleDateFormat): Long{
         val strDate = sdf.format(Date())
         val cv: ContentValues = ContentValues().apply {
             put(FILLUP_COLUMN_DATE, strDate)

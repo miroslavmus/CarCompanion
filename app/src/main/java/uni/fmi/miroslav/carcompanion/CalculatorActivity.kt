@@ -11,6 +11,7 @@ import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.tools.Calc
 import uni.fmi.miroslav.carcompanion.tools.Database
 import java.sql.SQLException
+import java.text.SimpleDateFormat
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class CalculatorActivity : AppCompatActivity() {
@@ -183,12 +184,13 @@ class CalculatorActivity : AppCompatActivity() {
         return null
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun save(fuel: Double, km: Double){
         var db: Database? = null
         var id: Long? = null
         try {
             db = Database(this)
-            id = db.insertFillUp(db.writableDatabase, fuel, km)
+            id = db.insertFillUp(db.writableDatabase, fuel, km, SimpleDateFormat(getString(R.string.SDTF)))
 
         } catch (e: SQLException) {
             e.printStackTrace()

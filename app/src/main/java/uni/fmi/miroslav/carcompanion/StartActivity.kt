@@ -125,7 +125,7 @@ class StartActivity : AppCompatActivity() {
         val arrParts = arrayOf(ArrayList(), ArrayList<ModelItem>())
         val arrDocs = arrayOf(ArrayList(), ArrayList<ModelItem>())
 
-        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        val sdf = SimpleDateFormat(getString(R.string.SDF))
         var query: String
 
         //check for due parts

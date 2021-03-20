@@ -76,7 +76,7 @@ class CreateFixFragment : Fragment(),
                 }
                 try {
                     val contentValues = ContentValues().apply {
-                        val sdf = SimpleDateFormat("yyyy/MM/dd")
+                        val sdf = SimpleDateFormat(getString(R.string.SDF))
                         val strDate = sdf.format(Date())
                             put(
                                 Database.FIX_COLUMN_KM,

@@ -67,7 +67,7 @@ class ItemsOverviewActivity : AppCompatActivity(), ItemRecyclerAdapter.OnItemCli
         var cursor: Cursor? = null
         try {
             val query: String
-            val sdf = SimpleDateFormat("yyyy/MM/dd")
+            val sdf = SimpleDateFormat(getString(R.string.SDF))
             if (titleTV.isOn){
                 query = "SELECT ${Database.PARTS_COLUMN_NAME}, ${Database.PARTS_COLUMN_PIC}, ${Database.PARTS_COLUMN_KM}, ${Database.PARTS_COLUMN_TIME}, ${Database.PARTS_COLUMN_ID} " +
                         "FROM ${Database.TABLE_PARTS}"

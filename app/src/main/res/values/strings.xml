@@ -6,6 +6,9 @@
     <string name="lp100km" translatable="false">L/100km</string>
     <string name="success">Success</string>
     <string name="default_car_name">My Vehicle</string>
+    <string name="SDF" translatable="false">yyyy.MM.dd</string>
+    <string name="SDTF" translatable="false">yyyy.MM.dd HH:mm</string>
+    <string name="STF" translatable="false">HH:mm</string>
 
 
     <!--Strings used in Settings activity-->
