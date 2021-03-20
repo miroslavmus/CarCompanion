@@ -6,12 +6,13 @@ import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import uni.fmi.miroslav.carcompanion.adapters.ItemRecyclerAdapter
-import uni.fmi.miroslav.carcompanion.customelements.ToggleTextView
+import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.fragments.ConfirmDeleteDialog
 import uni.fmi.miroslav.carcompanion.models.ModelItem
 import uni.fmi.miroslav.carcompanion.tools.Calc
@@ -24,7 +25,7 @@ import kotlin.collections.ArrayList
 
 class ItemsOverviewActivity : AppCompatActivity(), ItemRecyclerAdapter.OnItemClickListener, ConfirmDeleteDialog.DialogListener {
 
-    private lateinit var titleTV: ToggleTextView
+    private lateinit var titleTV: ToggleView<TextView>
     private lateinit var recyclerView: RecyclerView
     private lateinit var popupMenu: PopupMenu
 
@@ -34,7 +35,7 @@ class ItemsOverviewActivity : AppCompatActivity(), ItemRecyclerAdapter.OnItemCli
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_overview)
 
-        titleTV = ToggleTextView(findViewById(R.id.itemTextView), getString(R.string.existing_parts), getString(R.string.existing_documents))
+        titleTV = ToggleView(findViewById(R.id.itemTextView), getString(R.string.existing_parts), getString(R.string.existing_documents))
 
         when (intent.extras?.get("mode")!!){
             ("doc") -> titleTV.switchTo(false)

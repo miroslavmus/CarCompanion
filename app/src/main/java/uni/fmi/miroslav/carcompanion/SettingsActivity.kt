@@ -10,12 +10,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import uni.fmi.miroslav.carcompanion.tools.Database
-import uni.fmi.miroslav.carcompanion.customelements.ToggleButton
+import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.fragments.ConfirmDeleteDialog
 
 class SettingsActivity : AppCompatActivity(), ConfirmDeleteDialog.DialogListener {
 
-    private lateinit var tglBtn: ToggleButton
+    private lateinit var tglBtn: ToggleView<Button>
 
     private lateinit var tutorialBtn: Button
     private lateinit var toGPBtn: Button
@@ -47,12 +47,12 @@ class SettingsActivity : AppCompatActivity(), ConfirmDeleteDialog.DialogListener
         aboutBtn.setOnClickListener { ConfirmDeleteDialog(getString(R.string.about_app_dialog_settings), "", getString(R.string.ok)).show(supportFragmentManager, "about") }
 
         //toggle button for metric systems
-        tglBtn = ToggleButton(
+        tglBtn = ToggleView(
             findViewById(R.id.unitsButton),
             getString(R.string.metric),
             getString(R.string.imperial)
         )
-        tglBtn.btn.setOnClickListener{ toggleMetric() }
+        tglBtn.setOnClickListener{ toggleMetric() }
 
     }
 

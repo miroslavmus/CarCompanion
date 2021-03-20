@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import uni.fmi.miroslav.carcompanion.adapters.ImageRecyclerAdapter
 import uni.fmi.miroslav.carcompanion.adapters.ItemRecyclerAdapter
-import uni.fmi.miroslav.carcompanion.customelements.ToggleTextView
+import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.interfaces.FragmentForm
 import uni.fmi.miroslav.carcompanion.interfaces.OnActivityAutoFill
 import uni.fmi.miroslav.carcompanion.models.ModelImage
@@ -35,7 +35,7 @@ class ModifyEntryActivity : AppCompatActivity(),
     private lateinit var actBtn: FloatingActionButton
     private lateinit var popupWindow: PopupWindow
     private lateinit var attachedFragment: Fragment
-    private lateinit var titleTV: ToggleTextView
+    private lateinit var titleTV: ToggleView<TextView>
     private lateinit var currentModel: ModelItem
 
     private lateinit var activeImage: String
@@ -55,7 +55,7 @@ class ModifyEntryActivity : AppCompatActivity(),
         //bind visual elements
         imgIV = findViewById(R.id.avatarModifyItemImageView)
         actBtn = findViewById(R.id.fragmentModifyActionButton)
-        titleTV = ToggleTextView(findViewById(R.id.modifyEntryTextView), getString(R.string.modify_part), getString(R.string.modify_document))
+        titleTV = ToggleView(findViewById(R.id.modifyEntryTextView), getString(R.string.modify_part), getString(R.string.modify_document))
 
 
 
@@ -63,10 +63,10 @@ class ModifyEntryActivity : AppCompatActivity(),
 
         imgIV.setOnClickListener{ createPopUpImages(it as ImageView) }
 
-        titleTV.tv.setOnClickListener { createPopUpItems(it as TextView) }
+        titleTV.setOnClickListener { createPopUpItems(it as TextView) }
 
         if (intent.extras?.getBoolean("parts?")!! && intent.extras?.getBoolean("docs?")!!){
-            titleTV.tv.setOnClickListener { titleAction1(it as TextView) }
+            titleTV.setOnClickListener { titleAction1(it as TextView) }
             actBtn.setOnClickListener{ clickListenerPartsFragment() }
         }
         else if (intent.extras?.getBoolean("parts?")!!){
@@ -251,7 +251,7 @@ class ModifyEntryActivity : AppCompatActivity(),
 
         (attachedFragment as OnActivityAutoFill).onAutoFill(modelItem)
         popupWindow.dismiss()
-        titleTV.tv.setOnClickListener{
+        titleTV.setOnClickListener{
             titleAction1(it as TextView)
         }
     }

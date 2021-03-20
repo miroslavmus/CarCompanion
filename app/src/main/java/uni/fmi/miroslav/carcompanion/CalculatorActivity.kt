@@ -5,11 +5,9 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Switch
-import android.widget.Toast
-import uni.fmi.miroslav.carcompanion.customelements.ToggleTextView
+import android.widget.*
+
+import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.tools.Calc
 import uni.fmi.miroslav.carcompanion.tools.Database
 import java.sql.SQLException
@@ -17,48 +15,48 @@ import java.sql.SQLException
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class CalculatorActivity : AppCompatActivity() {
 
-    private lateinit var unitTV: ToggleTextView
+    private lateinit var unitTV: ToggleView<Button>
     private lateinit var unitET: EditText
-    private lateinit var distTV: ToggleTextView
+    private lateinit var distTV: ToggleView<Button>
     private lateinit var distET: EditText
 
     private lateinit var saveSwitch: Switch
 
-    private lateinit var toggleTV: ToggleTextView
+    private lateinit var toggleTV: ToggleView<TextView>
 
     private lateinit var mpgBtn: Button
     private lateinit var lkmBtn: Button
 
-    private lateinit var resLastTV: ToggleTextView
-    private lateinit var resTV: ToggleTextView
-    private lateinit var resAvgTV: ToggleTextView
+    private lateinit var resLastTV: ToggleView<TextView>
+    private lateinit var resTV: ToggleView<TextView>
+    private lateinit var resAvgTV: ToggleView<TextView>
 
     private var isMetric: Boolean = true
+
+    //debug
+    private val debug: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator)
 
         //units TV's and ET's
-
         unitET = findViewById(R.id.fuelCalculatorEditText)
-        unitTV = ToggleTextView(
-            findViewById(R.id.unitFuelCalculatorTextView),
+        unitTV = ToggleView(
+            findViewById(R.id.unitFuelCalculatorButton),
             getString(R.string.li),
             getString(R.string.gal)
         )
         distET = findViewById(R.id.distanceCalculatorEditText)
-        distTV = ToggleTextView(
-            findViewById(R.id.unitDistCalculatorTextView),
+        distTV = ToggleView(
+            findViewById(R.id.unitDistCalculatorButton),
             getString(R.string.km),
             getString(R.string.mi)
         )
 
         //save switch
-
         saveSwitch = findViewById(R.id.saveResultCalculatorSwitch)
-        saveSwitch.setOnClickListener { saveSwitch.isActivated = !saveSwitch.isActivated }
-        saveSwitch.isActivated = false
+        saveSwitch.isChecked = false
 
         //calculate buttons
 
@@ -66,40 +64,35 @@ class CalculatorActivity : AppCompatActivity() {
         lkmBtn = findViewById(R.id.kmCalculatorButton)
 
         //TV displays
-
-        resTV = ToggleTextView(
+        resTV = ToggleView(
             findViewById(R.id.resultCalculatorTextView)
         )
-        resAvgTV = ToggleTextView(
+        resAvgTV = ToggleView(
             findViewById(R.id.avgResultCalculatorTextView)
         )
-        resLastTV = ToggleTextView(
+        resLastTV = ToggleView(
             findViewById(R.id.prevResultCalculatorTextView)
         )
 
         //setup units on screen and update with Database
-
         val db = Database(this)
         isMetric = db.getIfMetric(db.readableDatabase)
         unitTV.switchTo(isMetric)
         distTV.switchTo(isMetric)
 
         //setup and update mpg/lp100km Toggle TV
-
-        toggleTV = ToggleTextView(
+        toggleTV = ToggleView(
             findViewById(R.id.toggleCalculatorTextView),
             getString(R.string.lp100km),
             getString(R.string.mpg)
         )
 
         //onClick listeners for units and toggle result unit
-
-        unitTV.tv.setOnClickListener { unitTV.toggle() }
-        distTV.tv.setOnClickListener { distTV.toggle() }
-        toggleTV.tv.setOnClickListener { switchFields(!toggleTV.isOn) }
+        unitTV.setOnClickListener { unitTV.toggle() }
+        distTV.setOnClickListener { distTV.toggle() }
+        toggleTV.setOnClickListener { switchFields(!toggleTV.isOn) }
 
         //onClick listeners for mpg and li/100km calculate buttons
-
         mpgBtn.setOnClickListener { calculate(mpgBtn) }
         lkmBtn.setOnClickListener { calculate(lkmBtn) }
 
@@ -128,16 +121,9 @@ class CalculatorActivity : AppCompatActivity() {
         //calculate result
         result = Calc.getLKM(km, li)
 
-        //save result
-        if (saveSwitch.isChecked) {
-            saveSwitch.isChecked = false
-            save(li, km)
-        }
 
         //fill the three text views with info
-
-        resTV = ToggleTextView(
-            resTV.tv,
+        resTV.updateInfo(
             formatDouble(result),
             formatDouble(Calc.convert(result))
         )
@@ -147,20 +133,21 @@ class CalculatorActivity : AppCompatActivity() {
         val avg: Double? = cv?.getAsDouble("avg")
 
         if (last != null){
-            resAvgTV =
-                ToggleTextView(
-                    resAvgTV.tv,
+            resAvgTV.updateInfo(
                     formatDouble(avg!!),
                     formatDouble(Calc.convert(avg))
                 )
-            resLastTV =
-                ToggleTextView(
-                    resLastTV.tv,
+            resLastTV.updateInfo(
                     formatDouble(last),
                     formatDouble(Calc.convert(last))
                 )
         }
 
+        //save result
+        if (saveSwitch.isChecked) {
+            saveSwitch.isChecked = false
+            save(li, km)
+        }
 
         //this syncs the bottom TV with the button for calculation that is pressed
         //also now syncs the other TV's
@@ -209,7 +196,7 @@ class CalculatorActivity : AppCompatActivity() {
             db!!.close()
         }
 
-        //Toast.makeText(this, "result saved under id:$id", Toast.LENGTH_SHORT).show()
+        if (debug) Toast.makeText(this, "result saved under id:$id", Toast.LENGTH_SHORT).show()
     }
 
     private fun switchFields(boolean: Boolean){

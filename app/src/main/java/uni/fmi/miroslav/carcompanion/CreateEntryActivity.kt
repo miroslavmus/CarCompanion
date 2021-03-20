@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import uni.fmi.miroslav.carcompanion.adapters.ImageRecyclerAdapter
-import uni.fmi.miroslav.carcompanion.customelements.ToggleTextView
+import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.interfaces.FragmentForm
 import uni.fmi.miroslav.carcompanion.models.ModelImage
 import uni.fmi.miroslav.carcompanion.tools.Database
@@ -30,7 +31,7 @@ class CreateEntryActivity : AppCompatActivity(),
     private lateinit var activeImage: String
     private lateinit var popupWindow: PopupWindow
     private lateinit var attachedFragment: Fragment
-    private lateinit var titleTV: ToggleTextView
+    private lateinit var titleTV: ToggleView<TextView>
 
     private val defaultImage = "resource_1"
 
@@ -46,7 +47,7 @@ class CreateEntryActivity : AppCompatActivity(),
         //bind visual elements
         imgIV = findViewById(R.id.avatarCreateItemImageView)
         actBtn = findViewById(R.id.fragmentCreateActionButton)
-        titleTV = ToggleTextView(findViewById(R.id.createEntryTextView), getString(R.string.create_new_part), getString(R.string.create_new_document))
+        titleTV = ToggleView(findViewById(R.id.createEntryTextView), getString(R.string.create_new_part), getString(R.string.create_new_document))
 
         //define click listeners for the button and image view
         actBtn.setOnClickListener{ clickListenerPartsFragment() }

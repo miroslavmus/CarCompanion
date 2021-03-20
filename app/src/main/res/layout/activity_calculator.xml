@@ -40,7 +40,7 @@
 
             <EditText
                 android:id="@+id/distanceCalculatorEditText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
@@ -49,8 +49,8 @@
                 android:inputType="numberDecimal"
                 android:singleLine="true" />
 
-            <TextView
-                android:id="@+id/unitDistCalculatorTextView"
+            <Button
+                android:id="@+id/unitDistCalculatorButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|center_horizontal|center_vertical"
@@ -61,7 +61,6 @@
                 android:minWidth="75dp"
                 android:singleLine="true"
                 android:text="@string/km"
-                android:textColor="#002AFF"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -75,7 +74,7 @@
 
             <EditText
                 android:id="@+id/fuelCalculatorEditText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:autofillHints=""
@@ -84,8 +83,8 @@
                 android:inputType="numberDecimal"
                 android:singleLine="true" />
 
-            <TextView
-                android:id="@+id/unitFuelCalculatorTextView"
+            <Button
+                android:id="@+id/unitFuelCalculatorButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|center_horizontal|center_vertical"
@@ -96,7 +95,6 @@
                 android:minWidth="75dp"
                 android:singleLine="true"
                 android:text="@string/li"
-                android:textColor="#002AFF"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -186,7 +184,7 @@
             android:gravity="center|center_horizontal|center_vertical"
             android:minWidth="75dp"
             android:singleLine="true"
-            android:text="@string/li"
+            android:text="@string/lp100km"
             android:textColor="#192D97"
             android:textSize="25sp"
             android:textStyle="bold" />
