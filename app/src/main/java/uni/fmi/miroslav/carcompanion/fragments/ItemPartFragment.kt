@@ -3,7 +3,6 @@ package uni.fmi.miroslav.carcompanion.fragments
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -17,17 +16,16 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import uni.fmi.miroslav.carcompanion.tools.Database
-import uni.fmi.miroslav.carcompanion.adapters.FixRecyclerAdapter
 import uni.fmi.miroslav.carcompanion.ItemActivity
 import uni.fmi.miroslav.carcompanion.R
+import uni.fmi.miroslav.carcompanion.adapters.ItemRecyclerAdapter
 import uni.fmi.miroslav.carcompanion.interfaces.FragmentForm
 import uni.fmi.miroslav.carcompanion.interfaces.OnActivityAutoFill
 import uni.fmi.miroslav.carcompanion.models.ModelFix
 import uni.fmi.miroslav.carcompanion.models.ModelItem
 import java.sql.SQLException
-import java.util.Map.entry
 
-class ItemPartFragment : Fragment(), OnActivityAutoFill, FixRecyclerAdapter.OnFixClickListener, ItemActivity.FixDelete {
+class ItemPartFragment : Fragment(), OnActivityAutoFill, ItemRecyclerAdapter.OnFixClickListener, ItemActivity.FixDelete {
 
     private lateinit var modelItem: ModelItem
     private lateinit var modelFix: ModelFix
@@ -94,11 +92,7 @@ class ItemPartFragment : Fragment(), OnActivityAutoFill, FixRecyclerAdapter.OnFi
         this.modelItem = modelItem
     }
     fun updateRV(){
-        val adapterRV =
-            FixRecyclerAdapter(
-                this,
-                requireContext()
-            )
+        val adapterRV = ItemRecyclerAdapter(this)
         recyclerView.apply {
             adapter = adapterRV
             layoutManager = GridLayoutManager(requireContext(), 1)

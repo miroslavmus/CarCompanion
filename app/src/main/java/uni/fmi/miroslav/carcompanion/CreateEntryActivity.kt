@@ -15,7 +15,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import uni.fmi.miroslav.carcompanion.adapters.ImageRecyclerAdapter
+import uni.fmi.miroslav.carcompanion.adapters.ItemRecyclerAdapter
 import uni.fmi.miroslav.carcompanion.customelements.ToggleView
 import uni.fmi.miroslav.carcompanion.interfaces.FragmentForm
 import uni.fmi.miroslav.carcompanion.models.ModelImage
@@ -24,7 +24,7 @@ import java.sql.SQLException
 import java.util.ArrayList
 
 class CreateEntryActivity : AppCompatActivity(),
-    FragmentForm, ImageRecyclerAdapter.OnImageClickListener{
+    FragmentForm, ItemRecyclerAdapter.OnImageClickListener{
 
     private lateinit var imgIV: ImageView
     private lateinit var actBtn: FloatingActionButton
@@ -65,7 +65,7 @@ class CreateEntryActivity : AppCompatActivity(),
         popupWindow.contentView = view
         val recyclerView: RecyclerView = view.findViewById(R.id.itemSelectRecyclerView)
         val adapterRV =
-            ImageRecyclerAdapter(this)
+            ItemRecyclerAdapter(this)
         recyclerView.apply {
             layoutManager = GridLayoutManager(this@CreateEntryActivity, 3)
             adapter = adapterRV

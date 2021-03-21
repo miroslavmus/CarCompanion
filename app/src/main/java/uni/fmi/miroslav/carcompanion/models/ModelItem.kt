@@ -11,4 +11,4 @@ data class ModelItem (
     val valueField2Text: String = "",
     var message: String,
     val id: Int
-) : Serializable
+) : Model(), Serializable
